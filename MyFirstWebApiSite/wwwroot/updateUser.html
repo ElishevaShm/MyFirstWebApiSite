@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="updateUser.js"></script>
+    <script>
+        let userString = sessionStorage.getItem('currentUser')
+        let cu = JSON.parse(userString)
+    </script>
+    <link href="Style.css" rel="stylesheet" />
+</head>
+<body onload="helloTo()">
+    <h1 id="hello"></h1>
+    <div>
+
+        <button onclick="toUpdate()">לעדכון פרטים</button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+    </div>
+    <div id="update" style="visibility:hidden">
+        <label for="txtUpdateUserName">user name:</label>
+        <input id="txtUpdateUserName" /><br />
+        <progress id="pr" value="0.5" max="4"></progress>
+        <button onclick="checkPassword()">בדיקת סיסמא</button>
+
+        <label for="txtUpdatePassword">password::</label>
+        <input type="password" id="txtUpdatePassword" /><br />
+        <label for="txtUpdateFirstName">first name:</label>
+        <input id="txtUpdateFirstName" /><br />
+        <label for="txtUpdateLastName">last name:</label>
+        <input id="txtUpdateLastName" /><br />
+        <button onclick="updateUser()">עדכן פרטים</button>
+    </div>
+</body>
+</html>

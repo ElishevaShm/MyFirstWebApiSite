@@ -1,0 +1,33 @@
+﻿
+body {
+    background-color: whitesmoke;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+div {
+    border-block-color: darkmagenta;
+    margin: auto;
+}
+
+button, input {
+    margin: auto;
+    border-block-color: lightslategray;
+    border-style: groove;
+    border-left-width: inherit;
+    background-color: aquamarine;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 15%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+#pr {
+}
+
+.pr {
+}

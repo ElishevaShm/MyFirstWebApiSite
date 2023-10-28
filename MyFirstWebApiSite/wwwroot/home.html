@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="home.js"></script>
+    <link href="Style.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <label for="txtUserName">user name:</label>
+        <input id="txtUserName" /><br />
+        <label for="txtPassword">password::</label>
+        <input type="password" id="txtPassword" /><br />
+        <button onclick="loginServer()">התחברות</button>
+        <button onclick="newUser()">משתמש חדש</button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+    </div>
+    <div id="new" style="visibility:hidden">
+        <label for="txtNewUserName">user name:</label>
+        <input id="txtNewUserName" /><br />
+        <progress id="pr" value="0.5" max="4"></progress>
+        <label for="txtNewPassword">password::</label>
+        <input type="password" id="txtNewPassword" /><br />
+        <button onclick="checkPassword()">בדיקת סיסמא</button>
+        <h4 id="strength"></h4>
+        <label for="txtFirstName">first name:</label>
+        <input id="txtFirstName" /><br />
+        <label for="txtLastName">last name:</label>
+        <input id="txtLastName" /><br />
+        <button onclick="addUserToServer ()">רישום</button>
+
+    </div>
+</body>
+</html>
