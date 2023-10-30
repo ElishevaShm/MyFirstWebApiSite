@@ -72,15 +72,12 @@ async function checkPassword() {
 
 
 
-    if (res <= 2) alert("your password is weak!! try again")
-    // Update the password strength meter
+    if (res <= 2)
+        alert("your password is weak!! try again")
     pr.value = res;
     pr.max = 4;
-
-    // Update the text indicator
-    if (password !== "") {
+    if (password !== "")
         text.innerHTML = "Strength: " + strength[res];
-    } else {
+    else
         text.innerHTML = "";
-    }
 }

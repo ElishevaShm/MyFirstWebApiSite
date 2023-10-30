@@ -23,10 +23,10 @@ namespace MyFirstWebApiSite.Controllers
 
         // GET: api/<userController>
         [HttpGet]
-        public ActionResult<IEnumerable<User>> Get([FromQuery] string userName, [FromQuery] string password)
+        public async Task<ActionResult<IEnumerable<User>>> Get([FromQuery] string userName, [FromQuery] string password)
         {
 
-            User user = userService.getUserByEmailAndPassword(userName, password);
+           User user =await userService.getUserByEmailAndPassword(userName, password);
             if (user == null)
                 return NoContent();
             return Ok(user);
@@ -35,11 +35,14 @@ namespace MyFirstWebApiSite.Controllers
 
         // GET api/<userController>/5
         [HttpGet("{id}")]
-        //public ActionResult<IEnumerable<User>> Get(int id)
-        //{
-        //         return Ok(user);
-        //    return BadRequest();
-        //}
+        public async Task<ActionResult<IEnumerable<User>>> Get([FromRoute]int id)
+        {
+            User user = await userService.getUserById(id);
+            if (user == null)
+                return NoContent();
+            return Ok(user);
+            
+        }
 
 
         // POST api/<userController>
@@ -65,12 +68,12 @@ namespace MyFirstWebApiSite.Controllers
         }
         // PUT api/<userController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] User userToUpdate)
+        public async Task<IActionResult> Put(int id, [FromBody] User userToUpdate)
         {
 
             try
             {
-                User newUser = userService.updateUser(id, userToUpdate);
+                User newUser =await userService.updateUser(id, userToUpdate);
                 return Ok(newUser);
             }
             catch (Exception ex)

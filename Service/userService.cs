@@ -22,20 +22,28 @@ namespace Service
                 return null;
         }
 
-        public User getUserByEmailAndPassword(string userName, string password)
+        public async Task<User> getUserByEmailAndPassword(string userName, string password)
         {
-            return userRepository.getUserByEmailAndPassword(userName, password);
+            return await userRepository.getUserByEmailAndPassword(userName, password);
         }
 
-        public User updateUser(int id, User user)
+        public async Task<User> getUserById(int id)
+        {
+            return await userRepository.getUserById(id);
+        }
+
+        public async Task<User> updateUser(int id, User user)
         {
             int res = checkPassword(user.Password);
             if (res > 2)
-                return userRepository.updateUser(id, user);
+                return await userRepository.updateUser(id, user);
             else
                 return null;
 
         }
+
+       
+
         public int checkPassword(string pwd)
         {
             if (pwd != "")

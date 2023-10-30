@@ -7,15 +7,31 @@ namespace Repository
     {
         
         private readonly string filePath = "../Users.txt";
-        public User getUserByEmailAndPassword(string userName, string password)
+        public async Task<User> getUserByEmailAndPassword(string userName, string password)
+        {
+              using (StreamReader reader = System.IO.File.OpenText(filePath))
+            {
+               string? currentUserInFile;
+              while ((currentUserInFile =await reader.ReadLineAsync()) != null)
+                {
+                  User user = JsonSerializer.Deserialize<User>(currentUserInFile);
+                    if (user.UserName == userName && user.Password == password)
+                        return user;
+                }
+            }
+            return null;
+        }
+
+
+        public async Task<User> getUserById(int id)
         {
             using (StreamReader reader = System.IO.File.OpenText(filePath))
             {
                 string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
+                while ((currentUserInFile =await reader.ReadLineAsync()) != null)
                 {
                     User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.UserName == userName && user.Password == password)
+                    if (user.userId == id)
                         return user;
                 }
             }
@@ -24,31 +40,25 @@ namespace Repository
 
         public User addUser(User user)
         {
-            //var result = Zxcvbn.Core.EvaluatePassword(user.Password);
-            //if (result.Score <= 2)
-            //{
-            //    return BadRequest();
-            //}
+
             int numberOfUsers = System.IO.File.ReadLines(filePath).Count();
             user.userId = numberOfUsers + 1;
             string userJson = JsonSerializer.Serialize(user);
             System.IO.File.AppendAllText(filePath, userJson + Environment.NewLine);
-
             return user;
 
         }
 
 
-        public User updateUser(int id, User userToUpdate)
+        public async Task<User> updateUser(int id, User userToUpdate)
         {
             string textToReplace = string.Empty;
             using (StreamReader reader = System.IO.File.OpenText(filePath))
             {
 
                 string currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
+                while ((currentUserInFile =await reader.ReadLineAsync()) != null)
                 {
-
                     User user = JsonSerializer.Deserialize<User>(currentUserInFile);
                     if (user.userId == id)
                         textToReplace = currentUserInFile;

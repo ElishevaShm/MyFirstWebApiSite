@@ -4,17 +4,7 @@
         const userName = document.getElementById("txtUserName").value;
         const password = document.getElementById("txtPassword").value;
 
-        //const user = {
-        //    userName, password
-        //}
         const res = await fetch(`api/user?userName=${userName}&password=${password}`)
-        //    , {
-        //    method: "GET",
-        //    headers: {
-        //        "Content-Type": "application/json"
-        //    },
-        //    body: user
-        //}
         if (!res.ok)
             throw new Error("pleas register")
         const data = await res.json()
@@ -90,11 +80,9 @@ async function checkPassword() {
 
 
     if (res <= 2) alert("your password is weak!! try again")
-    // Update the password strength meter
     pr.value = res;
     pr.max = 4;
 
-    // Update the text indicator
     if (password !== "") {
         text.innerHTML = "Strength: " + strength[res];
     } else {
