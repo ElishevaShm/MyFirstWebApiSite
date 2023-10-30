@@ -3,8 +3,9 @@ using System.Text.Json;
 
 namespace Repository
 {
-    public class userRepository
+    public class userRepository : IuserRepository
     {
+        
         private readonly string filePath = "../Users.txt";
         public User getUserByEmailAndPassword(string userName, string password)
         {

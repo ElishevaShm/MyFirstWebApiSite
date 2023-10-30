@@ -13,7 +13,14 @@ namespace MyFirstWebApiSite.Controllers
     [ApiController]
     public class userController : ControllerBase
     {
-        userService userService = new userService();
+        IuserService userService;
+
+        public userController(IuserService iuserService)
+        {
+            userService = iuserService;
+        }
+
+
         // GET: api/<userController>
         [HttpGet]
         public ActionResult<IEnumerable<User>> Get([FromQuery] string userName, [FromQuery] string password)

@@ -3,10 +3,15 @@ using Repository;
 
 namespace Service
 {
-    public class userService
+    public class userService : IuserService
     {
 
-        userRepository userRepository = new userRepository();
+        private readonly IuserRepository userRepository;
+
+        public userService(IuserRepository iuserRepository)
+        {
+              userRepository = iuserRepository;
+        }
 
         public User addUser(User user)
         {
