@@ -31,7 +31,7 @@ namespace Repository
                 while ((currentUserInFile =await reader.ReadLineAsync()) != null)
                 {
                     User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.userId == id)
+                    if (user.Id == id)
                         return user;
                 }
             }
@@ -42,7 +42,7 @@ namespace Repository
         {
 
             int numberOfUsers = System.IO.File.ReadLines(filePath).Count();
-            user.userId = numberOfUsers + 1;
+            user.Id = numberOfUsers + 1;
             string userJson = JsonSerializer.Serialize(user);
             System.IO.File.AppendAllText(filePath, userJson + Environment.NewLine);
             return user;
@@ -60,7 +60,7 @@ namespace Repository
                 while ((currentUserInFile =await reader.ReadLineAsync()) != null)
                 {
                     User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.userId == id)
+                    if (user.Id == id)
                         textToReplace = currentUserInFile;
                 }
             }

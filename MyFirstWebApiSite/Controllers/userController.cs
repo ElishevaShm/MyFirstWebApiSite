@@ -53,7 +53,7 @@ namespace MyFirstWebApiSite.Controllers
             try
             {
                 User newUser = userService.addUser(user);
-                return CreatedAtAction(nameof(Get), new { id = user.userId }, user);
+                return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
             }
             catch (Exception ex)
             {
