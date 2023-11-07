@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Reposirory;
+namespace Repository;
 
 public partial class WebElectricStore1Context : DbContext
 {
@@ -17,6 +17,10 @@ public partial class WebElectricStore1Context : DbContext
     }
 
     public virtual DbSet<Category> Categories { get; set; }
+
+    public virtual DbSet<Order> Orders { get; set; }
+
+    public virtual DbSet<OrderItem> OrderItems { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
 
@@ -39,9 +43,33 @@ public partial class WebElectricStore1Context : DbContext
                 .IsFixedLength();
         });
 
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.ToTable("Order");
+
+            entity.Property(e => e.OrderDate).HasColumnType("date");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_Order_Order");
+        });
+
+        modelBuilder.Entity<OrderItem>(entity =>
+        {
+            entity.ToTable("OrderItem");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.OrderItems)
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("FK_OrderItem_Order");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.OrderItems)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("FK_OrderItem_Product");
+        });
+
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC07B48D0798");
+            entity.HasKey(e => e.ProductId).HasName("PK__Product__3214EC07B48D0798");
 
             entity.ToTable("Product");
 
@@ -63,14 +91,11 @@ public partial class WebElectricStore1Context : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("User");
+            entity.ToTable("User");
 
             entity.Property(e => e.FirstName)
                 .HasMaxLength(20)
                 .IsFixedLength();
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.LastName)
                 .HasMaxLength(20)
                 .IsFixedLength();

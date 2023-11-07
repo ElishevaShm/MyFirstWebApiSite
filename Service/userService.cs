@@ -13,11 +13,11 @@ namespace Service
               userRepository = iuserRepository;
         }
 
-        public User addUser(User user)
+        public async Task<User> addUser(User user)
         {
             int res = checkPassword(user.Password);
             if (res > 2)
-                return userRepository.addUser(user);
+               return await userRepository.addUser(user);
             else
                 return null;
         }
@@ -32,13 +32,11 @@ namespace Service
             return await userRepository.getUserById(id);
         }
 
-        public async Task<User> updateUser(int id, User user)
+        public async Task updateUser(int id, User user)
         {
             int res = checkPassword(user.Password);
             if (res > 2)
-                return await userRepository.updateUser(id, user);
-            else
-                return null;
+                await userRepository.updateUser(id, user);
 
         }
 
