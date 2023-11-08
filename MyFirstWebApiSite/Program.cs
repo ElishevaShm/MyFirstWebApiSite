@@ -13,6 +13,8 @@ builder.Services.AddTransient<IproductService, productService>();
 builder.Services.AddTransient<IproductRepository, productRepository>();
 builder.Services.AddTransient<IorderService, orderService>();
 builder.Services.AddTransient<IorderRepository, orderRepository>();
+builder.Services.AddTransient<IcategoryService, categoryService>();
+builder.Services.AddTransient<IcategoryRepository, categoryRepository>();
 
 builder.Services.AddControllers();
 
