@@ -11,6 +11,10 @@ function toUpdate() {
     update.style.visibility = "initial"
 }
 
+function toProduct() {
+    window.location.href = './Products.html';
+}
+
 async function updateUser() {
     const userString = sessionStorage.getItem('currentUser')
     const id = JSON.parse(userString).userId
