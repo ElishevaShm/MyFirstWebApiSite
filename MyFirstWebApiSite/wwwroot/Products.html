@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <script src="../Scripts/Products.js"></script>
+    <script src="./Products.js"></script>
     <link href="./Products.css" rel="stylesheet" />
 
     <meta charset="utf-8" />
@@ -21,14 +21,15 @@
         <div class="cb checkbox">
             <input type="checkbox" class="opt" id="" value="">
             <label for="">
+                <a>
                 <span class="OptionName"></span>
                 <span class="Count"></span>
-                </a>
+               </a>
             </label>
         </div>
     </template>
 </head>
-<body>
+<body onload="getAllProduct(),getAllCategory()">
     <header>
         <div class="bar">
 

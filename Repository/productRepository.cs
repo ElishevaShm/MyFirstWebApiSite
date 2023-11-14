@@ -16,7 +16,7 @@ namespace Repository
         {
             _webElectricStore1Context = webElectricStore1Context;
         }
-        public async Task<IEnumerable<Product>> getProductAsync(int position, int skip,string? name,int? minPrice, int? maxPrice, int?[]categoryIds )
+        public async Task<IEnumerable<Product>> getProductAsync(int? position, int? skip,string? name,int? minPrice, int? maxPrice, int?[]categoryIds )
         {
             var query = _webElectricStore1Context.Products.Where(product =>
             (name == null ? (true) : (product.Name.Contains(name)))

@@ -19,7 +19,7 @@ namespace MyFirstWebApiSite.Controllers
         }
         // GET: api/<productController>
         [HttpGet]
-        public async Task<IEnumerable<Product>> getProductAsync(int position, int skip, string? name, int? minPrice, int? maxPrice, int?[] categoryIds)
+        public async Task<IEnumerable<Product>> getProductAsync(int? position, int? skip, string? name, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
             return await _productService.getProductAsync(position, skip, name, minPrice, maxPrice,  categoryIds);
         }
