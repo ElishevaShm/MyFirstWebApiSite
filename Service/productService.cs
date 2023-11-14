@@ -16,9 +16,9 @@ namespace Repository
         {
             _productRepository = productRepository;
         }
-        public async Task<IEnumerable<Product>> getProductAsync()
+        public async Task<IEnumerable<Product>> getProductAsync(int position, int skip, string? name, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
-            return await _productRepository.getProductAsync();
+            return await _productRepository.getProductAsync(position,skip, name, minPrice, maxPrice, categoryIds);
         }
     }
 }

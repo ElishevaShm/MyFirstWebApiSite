@@ -16,9 +16,17 @@ namespace Repository
         {
             _webElectricStore1Context = webElectricStore1Context;
         }
-        public async Task<IEnumerable<Product>> getProductAsync()
+        public async Task<IEnumerable<Product>> getProductAsync(int position, int skip,string? name,int? minPrice, int? maxPrice, int?[]categoryIds )
         {
-            return await _webElectricStore1Context.Products.ToListAsync();
+            var query = _webElectricStore1Context.Products.Where(product =>
+            (name == null ? (true) : (product.Name.Contains(name)))
+            && ((minPrice == null) ? (true) : (product.Price >= minPrice))
+            && ((maxPrice == null) ? (true) : (product.Price >= maxPrice))
+            && ((categoryIds.Length == 0) ? (true) : (categoryIds.Contains(product.CategoryId)))
+            ).OrderBy(product => product.Price);
+            
+
+            return await query.ToListAsync();
         }
     }
 }

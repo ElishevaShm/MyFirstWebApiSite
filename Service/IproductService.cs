@@ -9,6 +9,6 @@ namespace Repository
 {
     public interface IproductService
     {
-        Task<IEnumerable<Product>> getProductAsync(); 
+        Task<IEnumerable<Product>> getProductAsync(int position, int skip, string? name, int? minPrice, int? maxPrice, int?[] categoryIds); 
     }
 }
