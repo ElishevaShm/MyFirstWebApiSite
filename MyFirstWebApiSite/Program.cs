@@ -18,7 +18,7 @@ builder.Services.AddTransient<IcategoryRepository, categoryRepository>();
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<WebElectricStore1Context>(option =>option.UseSqlServer("Server=DESKTOP-L9S4R74;Database=WebElectricStore1;Trusted_Connection=True;TrustServerCertificate=True"));
+builder.Services.AddDbContext<WebElectricStore1Context>(option =>option.UseSqlServer("Server=SRV2\\PUPILS;Database=WebElectricStore1;Trusted_Connection=True;TrustServerCertificate=True"));
 
 
 builder.Services.AddEndpointsApiExplorer();
