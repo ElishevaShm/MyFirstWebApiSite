@@ -44,7 +44,7 @@ async function getAllCategory() {
 async function drawProduct(p) {
     const temp = document.getElementById('temp-card')
     const clone = temp.content.cloneNode(true)//chack
-    clone.querySelector("img").src = "./pictures" + p.image
+    clone.querySelector("img").src = "./pictures/" + p.image
     clone.querySelector("h1").innerhtml = p.name
     clone.querySelector(".price").innerhtml = p.price
     clone.querySelector(".description").innerhtml = p.des
