@@ -81,7 +81,7 @@ async function filterProducts() {
     let allCategoryOption = document.querySelectorAll('.opt');
     for (let i = 0; i < allCategoryOption.length; i++) {
         if (allCategoryOption[i].checked)
-            categories.push(allCategoryOption[i])
+            categories.push(allCategoryOption[i].id)
     }
     let name = document.getElementById('nameSearch').value
     let minPrice = document.getElementById('minPrice').value
@@ -96,10 +96,11 @@ async function filterProducts() {
         url += '&minPrice=' + minPrice
     if (maxPrice)
         url += '&maxPrice=' + maxPrice
+    console.log(categories[1])
     if (categories)
     {
         for (let j = 0; j < categories.length; j++) {
-            url += '&categoryIds=' + categories[i]
+            url += '&categoryIds=' + categories[j]
         }
     }
     getAllProduct(url)
