@@ -1,5 +1,7 @@
 ﻿async function getAllProduct(url) {
     try {
+        const prod = JSON.parse(sessionStorage.getItem('products'))
+        document.querySelector('.ItemCount').innerText = prod.length
         const res = await fetch(url)
         if (!res.ok)
             throw new Error("failed")
@@ -7,6 +9,7 @@
 
         if (products)
         {
+            document.getElementById('counter').innerText = products.length;
             document.getElementById('PoductList').replaceChildren([]);
             products.map(p =>
                drawProduct(p)
@@ -52,16 +55,32 @@ async function drawProduct(p) {
     clone.querySelector("h1").innerText = p.name
     clone.querySelector(".price").innerText = p.price
     clone.querySelector(".description").innerText = p.des
-    clone.querySelector("button").addEventListener('click', () => addToCart(JSON.stringify(p)))
+    clone.querySelector("button").addEventListener('click', () => addToCart(p))
 
     const list = document.getElementById('PoductList');
     
     list.appendChild(clone);
 } 
-
+listToSession = [];
+count = 0;
 async function addToCart(p) {
-
-    sessionStorage.setItem('product', p)
+    const products = JSON.parse(sessionStorage.getItem('products'))
+    if (products != null) {
+        const prod = products.filter(pr => pr.productId == p.productId)
+        if (prod.length == 0) {
+            count++;
+            document.querySelector('.ItemCount').innerText = count
+            listToSession.push(p)
+            sessionStorage.setItem('products', JSON.stringify(listToSession))
+        }
+    }
+    else
+    {
+        count++;
+        document.querySelector('.ItemCount').innerText = count
+        listToSession.push(p)
+        sessionStorage.setItem('products', JSON.stringify(listToSession))
+    }
 }
 
 async function showCategory(c) {
