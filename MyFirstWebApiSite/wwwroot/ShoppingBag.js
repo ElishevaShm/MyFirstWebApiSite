@@ -36,6 +36,7 @@ async function drawProduct(p) {
 } 
 
 async function deleteProduct(p) {
+    allPrice -= p.price
     const products = JSON.parse(sessionStorage.getItem('products'))
     const prodCart = products.filter(prod => prod.productId != p.productId);
     sessionStorage.setItem('products', [])

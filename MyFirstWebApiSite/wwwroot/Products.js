@@ -1,7 +1,10 @@
 ﻿async function getAllProduct(url) {
     try {
         const prod = JSON.parse(sessionStorage.getItem('products'))
-        document.querySelector('.ItemCount').innerText = prod.length
+        if (!prod)
+            document.querySelector('.ItemCount').innerText = 0
+        else
+            document.querySelector('.ItemCount').innerText = prod.length
         const res = await fetch(url)
         if (!res.ok)
             throw new Error("failed")
@@ -123,10 +126,4 @@ async function filterProducts() {
         }
     }
     getAllProduct(url)
-
-    //https://localhost:44383/api/product?name=camera&minPrice=1000&maxPrice=2000&categoryIds=1&categoryIds=2
-    //https://localhost:44383/api/product?categoryIds=1&categoryIds=2
-
-
-
 }
