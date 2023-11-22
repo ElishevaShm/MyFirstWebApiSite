@@ -44,3 +44,32 @@ async function deleteProduct(p) {
 
     getProductCart()
 }
+
+
+async function placeOrder() {
+    try {
+        //const userName = document.getElementById("txtNewUserName").value
+        //const password = document.getElementById("txtNewPassword").value
+        //const firstName = document.getElementById("txtFirstName").value
+        const orderSum = document.getElementById('totalAmount').value
+
+        const user = { userName, password, firstName, lastName }
+        console.log(user)
+
+        const res = await fetch("api/user", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+        if (!res.ok)
+            throw new Error("Error add user to server")
+        const data = await res.json()
+        alert(`user ${data.userName} was added`)
+        sessionStorage.setItem("currentUser", JSON.stringify(data))
+    }
+    catch (ex) {
+        alert("error")
+    }
+}

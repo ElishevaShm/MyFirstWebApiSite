@@ -71,6 +71,8 @@ async function addToCart(p) {
     if (products != null) {
         const prod = products.filter(pr => pr.productId == p.productId)
         if (prod.length == 0) {
+            listToSession = products
+            count = products.length
             count++;
             document.querySelector('.ItemCount').innerText = count
             listToSession.push(p)
@@ -108,7 +110,6 @@ async function filterProducts() {
     let name = document.getElementById('nameSearch').value
     let minPrice = document.getElementById('minPrice').value
     let maxPrice = document.getElementById('maxPrice').value
-    //clone.querySelector("button").addEventListener('click', () => addToCart(JSON.stringify(p)))
 
     if (name || categories || minPrice || maxPrice)
         url += '?'
