@@ -14,7 +14,6 @@ public partial class Order
 
     public DateTime? OrderDate { get; set; }
 
-    [JsonIgnore]
     public virtual ICollection<OrderItem>? OrderItems { get; set; } = new List<OrderItem>();
 
     public virtual User? User { get; set; }

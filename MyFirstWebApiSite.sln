@@ -3,18 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFirstWebApiSite", "MyFirstWebApiSite\MyFirstWebApiSite.csproj", "{C52E65C5-978E-429E-9444-DE3F594EB8C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyFirstWebApiSite", "MyFirstWebApiSite\MyFirstWebApiSite.csproj", "{C52E65C5-978E-429E-9444-DE3F594EB8C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity", "Entity\Entity.csproj", "{31BBD91B-0A75-4F98-8CA4-127896377EB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity", "Entity\Entity.csproj", "{31BBD91B-0A75-4F98-8CA4-127896377EB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{D12F3CF1-9E8B-4983-A3AE-FA6D60842457}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{D12F3CF1-9E8B-4983-A3AE-FA6D60842457}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{4BBEEA25-DA19-42D5-8876-DF0DBB45CCA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{4BBEEA25-DA19-42D5-8876-DF0DBB45CCA3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{09AB84B7-1881-4C07-B5F7-CEF06E354639}"
 	ProjectSection(SolutionItems) = preProject
 		Users.txt = Users.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{DF8269AB-CE74-4468-82E8-2F9E0CC3324A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{4BBEEA25-DA19-42D5-8876-DF0DBB45CCA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BBEEA25-DA19-42D5-8876-DF0DBB45CCA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BBEEA25-DA19-42D5-8876-DF0DBB45CCA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF8269AB-CE74-4468-82E8-2F9E0CC3324A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF8269AB-CE74-4468-82E8-2F9E0CC3324A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF8269AB-CE74-4468-82E8-2F9E0CC3324A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF8269AB-CE74-4468-82E8-2F9E0CC3324A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

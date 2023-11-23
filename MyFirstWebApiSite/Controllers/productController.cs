@@ -1,4 +1,6 @@
-﻿using Entity;
+﻿using AutoMapper;
+using DTO;
+using Entity;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
 
@@ -12,41 +14,22 @@ namespace MyFirstWebApiSite.Controllers
     public class productController : ControllerBase
     {
         private readonly IproductService _productService;
+        private readonly IMapper _mapper;
 
-        public productController(IproductService productService)
+        public productController(IproductService productService , IMapper mapper)
         {
             _productService = productService;
+            _mapper = mapper;
         }
         // GET: api/<productController>
         [HttpGet]
-        public async Task<IEnumerable<Product>> getProductAsync(int? position, int? skip, string? name, int? minPrice, int? maxPrice, [FromQuery] int?[] categoryIds)
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> getProductAsync(int? position, int? skip, string? name, int? minPrice, int? maxPrice, [FromQuery] int?[] categoryIds)
         {
-            return await _productService.getProductAsync(position, skip, name, minPrice, maxPrice,  categoryIds);
+            IEnumerable<Product> products= await _productService.getProductAsync(position, skip, name, minPrice, maxPrice,  categoryIds);
+            IEnumerable<ProductDTO> productDTO = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+            return products != null ? Ok(productDTO): BadRequest();
         }
 
-        // GET api/<productController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST api/<productController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT api/<productController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<productController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+       
     }
 }

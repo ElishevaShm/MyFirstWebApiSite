@@ -47,29 +47,41 @@ async function deleteProduct(p) {
 
 
 async function placeOrder() {
-    try {
-        //const userName = document.getElementById("txtNewUserName").value
-        //const password = document.getElementById("txtNewPassword").value
-        //const firstName = document.getElementById("txtFirstName").value
-        const orderSum = document.getElementById('totalAmount').value
 
-        const user = { userName, password, firstName, lastName }
-        console.log(user)
+    const user = sessionStorage.getItem('currentUser')
+    if (!user) 
+        window.location.href = './home.html'
+    else {
+        try {
+            const products = JSON.parse(sessionStorage.getItem('products'))
+            const userId = JSON.parse(user).userId
+            const orderSum = allPrice //document.getElementById('totalAmount').value
+            const orderDate = new Date();
+            const orderItem = []
 
-        const res = await fetch("api/user", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        })
-        if (!res.ok)
-            throw new Error("Error add user to server")
-        const data = await res.json()
-        alert(`user ${data.userName} was added`)
-        sessionStorage.setItem("currentUser", JSON.stringify(data))
-    }
-    catch (ex) {
-        alert("error")
+            products.map(p => orderItem.push({ "ProductId": p.productId, "Quantity": 1 }))
+
+            const order = { "UserId" : userId, "OrderSum": orderSum, "OrderDate": orderDate, "OrderItem": orderItem }
+            console.log(order)
+
+            const res = await fetch("api/order", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(order)
+            })
+            if (!res.ok)
+                throw new Error("Error add order to server")
+            const data = await res.json()
+            alert(`your order num  are success!`)
+            //${ data.orderId }
+            sessionStorage.setItem('products', [])
+            window.location.href = './Products.html';
+        }
+
+        catch (ex) {
+            alert("error")
+        }
     }
 }

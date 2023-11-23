@@ -1,10 +1,13 @@
 ﻿async function getAllProduct(url) {
     try {
-        const prod = JSON.parse(sessionStorage.getItem('products'))
-        if (!prod)
+        const prodString = sessionStorage.getItem('products')
+        if (!prodString)
             document.querySelector('.ItemCount').innerText = 0
-        else
+        else {
             document.querySelector('.ItemCount').innerText = prod.length
+            const prod = JSON.parse(prodString)
+        }
+           
         const res = await fetch(url)
         if (!res.ok)
             throw new Error("failed")
@@ -22,8 +25,6 @@
             
         else
             alert("not found product");
-
-        //sessionStorage.setItem("currentUser", JSON.stringify(data))
     }
     catch (ex) {
         alert(ex.message)
@@ -67,8 +68,9 @@ async function drawProduct(p) {
 listToSession = [];
 count = 0;
 async function addToCart(p) {
-    const products = JSON.parse(sessionStorage.getItem('products'))
-    if (products != null) {
+    const products1 = sessionStorage.getItem('products')
+    if ( products1 ) {
+        const products = JSON.parse(products1)
         const prod = products.filter(pr => pr.productId == p.productId)
         if (prod.length == 0) {
             listToSession = products

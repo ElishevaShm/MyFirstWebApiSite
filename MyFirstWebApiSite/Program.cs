@@ -15,6 +15,7 @@ builder.Services.AddTransient<IorderService, orderService>();
 builder.Services.AddTransient<IorderRepository, orderRepository>();
 builder.Services.AddTransient<IcategoryService, categoryService>();
 builder.Services.AddTransient<IcategoryRepository, categoryRepository>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
 
