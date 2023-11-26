@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Repository;
 
 public partial class WebElectricStore1Context : DbContext
 {
+    private readonly IConfiguration _configuration;
     public WebElectricStore1Context()
     {
     }
 
-    public WebElectricStore1Context(DbContextOptions<WebElectricStore1Context> options)
+    public WebElectricStore1Context(DbContextOptions<WebElectricStore1Context> options , IConfiguration configurationm)
         : base(options)
     {
+        _configuration = configurationm;
     }
 
     public virtual DbSet<Category> Categories { get; set; }
@@ -28,7 +31,7 @@ public partial class WebElectricStore1Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=SRV2\\PUPILS;Database=WebElectricStore1;Trusted_Connection=True;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("WebElectricStore1"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

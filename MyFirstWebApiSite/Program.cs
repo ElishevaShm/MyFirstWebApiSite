@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Repository;
 using Service;
 using Zxcvbn;
-
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +20,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<WebElectricStore1Context>(option =>option.UseSqlServer("Server=SRV2\\PUPILS;Database=WebElectricStore1;Trusted_Connection=True;TrustServerCertificate=True"));
+builder.Services.AddDbContext<WebElectricStore1Context>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("WebElectricStore1")));
 
 
 builder.Services.AddEndpointsApiExplorer();

@@ -16,6 +16,7 @@
         if (!res.ok)
             throw new Error("pleas register")
         const data = await res.json()
+        sessionStorage.setItem("currentUser", JSON.stringify(data))
 
         if (sessionStorage.getItem('products'))
             window.location.href = './ShoppingBag.html';
@@ -23,7 +24,6 @@
         else
             window.location.href = './updateUser.html';
 
-        sessionStorage.setItem("currentUser", JSON.stringify(data))
     }
     catch (ex) {
         alert(ex.message)
