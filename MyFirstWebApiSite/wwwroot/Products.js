@@ -4,8 +4,9 @@
         if (!prodString)
             document.querySelector('.ItemCount').innerText = 0
         else {
-            document.querySelector('.ItemCount').innerText = prod.length
             const prod = JSON.parse(prodString)
+            document.querySelector('.ItemCount').innerText = prod.length
+
         }
            
         const res = await fetch(url)

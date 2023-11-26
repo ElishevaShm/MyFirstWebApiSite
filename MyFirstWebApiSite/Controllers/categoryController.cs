@@ -1,4 +1,6 @@
-﻿using Entity;
+﻿using AutoMapper;
+using DTO;
+using Entity;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
 
@@ -12,41 +14,20 @@ namespace MyFirstWebApiSite.Controllers
     {
 
         private readonly IcategoryService _categoryService;
+        private readonly IMapper _mapper;
 
-        public categoryController(IcategoryService categoryService)
+        public categoryController(IcategoryService categoryService , IMapper mapper)
         {
             _categoryService = categoryService;
+            _mapper = mapper;
         }
         // GET: api/<categoryController>
         [HttpGet]
-        public async Task<IEnumerable<Category>> GetCategoriesAsync()
+        public async Task<IEnumerable<CategoryDTO>> GetCategoriesAsync()
         {
-            return await _categoryService.GetCategoriesAsync();
-        }
-
-        // GET api/<categoryController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<categoryController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<categoryController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<categoryController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            IEnumerable<Category> categories = await _categoryService.GetCategoriesAsync();
+            IEnumerable<CategoryDTO> categoryDTO =_mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(categories);
+            return categoryDTO;
         }
     }
 }

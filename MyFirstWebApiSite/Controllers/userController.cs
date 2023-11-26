@@ -1,4 +1,6 @@
-﻿using Entity;
+﻿using AutoMapper;
+using DTO;
+using Entity;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 using System.Text.Json;
@@ -13,34 +15,41 @@ namespace MyFirstWebApiSite.Controllers
     [ApiController]
     public class userController : ControllerBase
     {
-        IuserService userService;
+        private readonly IuserService _userService;
+        private readonly IMapper _mapper;
 
-        public userController(IuserService iuserService)
+        public userController(IuserService userService, IMapper mapper)
         {
-            userService = iuserService;
+            _userService = userService;
+            _mapper = mapper;
         }
 
 
-        // GET: api/<userController>
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get([FromQuery] string userName, [FromQuery] string password)
+        // POST: api/<userController>
+        [HttpPost("login")]
+        public async Task<ActionResult<UserLoginDTO>> login([FromBody] UserLoginDTO userLogin)
         {
 
-           User user =await userService.getUserByEmailAndPassword(userName, password);
-            if (user == null)
-                return NoContent();
-            return Ok(user);
+            User user =await _userService.getUserByEmailAndPassword(userLogin.UserName, userLogin.Password);
+            
+            if (user != null) 
+            {
+                UserLoginDTO userCreate = _mapper.Map<User, UserLoginDTO>(user);
+                return Ok(userCreate);
+            }
+            return NoContent();
 
         }
 
         // GET api/<userController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<User>>> Get([FromRoute]int id)
+        public async Task<ActionResult<IEnumerable<UserDTO>>> Get([FromRoute]int id)
         {
-            User user = await userService.getUserById(id);
+            User user = await _userService.getUserById(id);
+            UserDTO userDTO = _mapper.Map<User, UserDTO>(user);
             if (user == null)
                 return NoContent();
-            return Ok(user);
+            return Ok(userDTO);
             
         }
 
@@ -52,10 +61,12 @@ namespace MyFirstWebApiSite.Controllers
 
             try
             {
-                User newUser = await userService.addUser(user);
+                User newUser = await _userService.addUser(user);
+                
+
                 if (newUser == null)
                     return BadRequest();
-                return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser);
+                return CreatedAtAction(nameof(Get), new { id = user.UserId }, newUser);
             }
             catch (Exception ex)
             {
@@ -66,8 +77,9 @@ namespace MyFirstWebApiSite.Controllers
         [HttpPost("check")]
         public int Check([FromBody] string pwd)
         {
-            return userService.checkPassword(pwd);
+            return _userService.checkPassword(pwd);
         }
+
         // PUT api/<userController>/5
         [HttpPut("{id}")]
         public async Task Put(int id, [FromBody] User userToUpdate)
@@ -75,19 +87,13 @@ namespace MyFirstWebApiSite.Controllers
 
             try
             {
-               await userService.updateUser(id, userToUpdate);
+               await _userService.updateUser(id, userToUpdate);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
-        }
-
-        // DELETE api/<userController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

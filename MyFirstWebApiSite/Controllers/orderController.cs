@@ -1,4 +1,6 @@
-﻿using Entity;
+﻿using AutoMapper;
+using DTO;
+using Entity;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
 
@@ -11,45 +13,37 @@ namespace MyFirstWebApiSite.Controllers
     public class orderController : ControllerBase
     {
 
-        IorderService _orderService;
+        private readonly IorderService _orderService;
+        private readonly IMapper _mapper;
 
-        public orderController(IorderService orderService)
+        public orderController(IorderService orderService, IMapper mapper)
         {
             _orderService = orderService;
-        }
+            _mapper = mapper;
 
-
-        // GET: api/<orderController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<orderController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
         }
 
         // POST api/<orderController>
         [HttpPost]
-        public async Task<ActionResult<Order>> AddOrder(Order order)
+        public async Task<ActionResult<OrderDTO>> AddOrder(Order order)
         {
-            return await _orderService.AddOrderAsync(order);
+            try
+            {
+                Order orderCreate = await _orderService.AddOrderAsync(order);
+                OrderDTO orderDTO = _mapper.Map<Order, OrderDTO>(orderCreate);
+                return orderCreate !=null ? CreatedAtAction(nameof(Get), new {id = orderDTO.UserId }, orderDTO):NoContent();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
-        // PUT api/<orderController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpGet]
+        public string Get(int id)
         {
-        }
-
-        // DELETE api/<orderController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return "string";
         }
     }
 }

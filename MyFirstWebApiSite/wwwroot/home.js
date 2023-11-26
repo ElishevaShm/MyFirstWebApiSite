@@ -3,11 +3,20 @@
 
         const userName = document.getElementById("txtUserName").value;
         const password = document.getElementById("txtPassword").value;
+        const userLoginDTO = { userName, password }
 
-        const res = await fetch(`api/user?userName=${userName}&password=${password}`)
+        const res = await fetch('api/user/login',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userLoginDTO)
+            })
         if (!res.ok)
             throw new Error("pleas register")
         const data = await res.json()
+
         if (sessionStorage.getItem('products'))
             window.location.href = './ShoppingBag.html';
 
@@ -35,7 +44,6 @@ async function addUserToServer() {
         const lastName = document.getElementById("txtLastName").value
 
         const user = { userName, password, firstName, lastName }
-        console.log(user)
 
         const res = await fetch("api/user", {
             method: "POST",
@@ -56,17 +64,16 @@ async function addUserToServer() {
 }
 
 async function checkPassword() {
-    var res;
-    var strength = {
+    const strength = {
         0: "Worst",
         1: "Bad",
         2: "Weak",
         3: "Good",
         4: "Strong"
     }
-    var password = document.getElementById("txtNewPassword").value;
-    var pr = document.getElementById('pr');
-    var text = document.getElementById('strength');
+    const password = document.getElementById("txtNewPassword").value;
+    const pr = document.getElementById('pr');
+    const text = document.getElementById('strength');
 
     await fetch('api/user/check',
         {
