@@ -13,8 +13,8 @@
                 },
                 body: JSON.stringify(userLoginDTO)
             })
-        if (!res.ok)
-            throw new Error("pleas register")
+        if (res.status != 200)
+            throw new Error("user name or password are incorrect")
         const data = await res.json()
         sessionStorage.setItem("currentUser", JSON.stringify(data))
 
@@ -23,7 +23,6 @@
 
         else
             window.location.href = './updateUser.html';
-
     }
     catch (ex) {
         alert(ex.message)
@@ -59,7 +58,7 @@ async function addUserToServer() {
         sessionStorage.setItem("currentUser", JSON.stringify(data))
     }
     catch (ex) {
-        alert("error")
+        alert(ex)
     }
 }
 

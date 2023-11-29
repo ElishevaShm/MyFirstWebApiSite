@@ -46,8 +46,6 @@ async function getAllCategory() {
 
         else
             alert("not found product");
-
-        //sessionStorage.setItem("currentUser", JSON.stringify(data))
     }
     catch (ex) {
         alert(ex.message)
@@ -55,7 +53,7 @@ async function getAllCategory() {
 }
 async function drawProduct(p) {
     const temp = document.getElementById('temp-card')
-    const clone = temp.content.cloneNode(true)//chack
+    const clone = temp.content.cloneNode(true)
     clone.querySelector("img").src = "./pictures/" + p.image
     clone.querySelector("h1").innerText = p.name
     clone.querySelector(".price").innerText = p.price
@@ -122,7 +120,6 @@ async function filterProducts() {
         url += '&minPrice=' + minPrice
     if (maxPrice)
         url += '&maxPrice=' + maxPrice
-    console.log(categories[1])
     if (categories)
     {
         for (let j = 0; j < categories.length; j++) {

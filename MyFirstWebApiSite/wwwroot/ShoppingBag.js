@@ -11,8 +11,6 @@ async function getProductCart() {
             );
             document.getElementById('totalAmount').innerText = allPrice;
         }
-
-
         else
             alert("not found product");
     }
@@ -25,7 +23,7 @@ async function getProductCart() {
 async function drawProduct(p) {
     allPrice += p.price
     const temp = document.getElementById('temp-row')
-    const clone = temp.content.cloneNode(true)//chack
+    const clone = temp.content.cloneNode(true)
     clone.querySelector(".image").src = "./pictures/" + p.image.trim()
     clone.querySelector(".itemName").innerText = p.name
     clone.querySelector(".price").innerText = p.price
@@ -55,14 +53,13 @@ async function placeOrder() {
         try {
             const products = JSON.parse(sessionStorage.getItem('products'))
             const userId = JSON.parse(user).userId
-            const orderSum = allPrice //document.getElementById('totalAmount').value
+            const orderSum = allPrice
             const orderDate = new Date();
             const orderItem = []
 
             products.map(p => orderItem.push({ "ProductId": p.productId, "Quantity": 1 }))
 
             const order = { "UserId": userId, "OrderSum": orderSum, "OrderDate": orderDate, "OrderItems": orderItem }
-            console.log(order,"-order", orderItem,"-orderItem")
             
 
             const res = await fetch("api/order", {
@@ -76,7 +73,6 @@ async function placeOrder() {
                 throw new Error("Error add order to server")
             const data = await res.json()
             alert(`your order num ${data.orderId} are success!`)
-            //${ data.orderId }
             sessionStorage.setItem('products', [])
             window.location.href = './Products.html';
         }
