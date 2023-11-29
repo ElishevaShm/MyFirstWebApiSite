@@ -8,7 +8,7 @@ namespace DTO
 {
     public class UserLoginDTO
     {
-        public int UserId { get; }
+        public int UserId { get; set; }
 
         public string? UserName { get; set; }
 

@@ -10,5 +10,6 @@ namespace Repository
     public interface IorderRepository
     {
         Task<Order> AddOrderAsync(Order order);
+        Task<IEnumerable<Product>> GetProductsById(int[] prodsId);
     }
 }

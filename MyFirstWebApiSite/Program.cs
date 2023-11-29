@@ -3,6 +3,7 @@ using Repository;
 using Service;
 using Zxcvbn;
 using Microsoft.Extensions.Configuration;
+using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,10 +19,12 @@ builder.Services.AddTransient<IcategoryService, categoryService>();
 builder.Services.AddTransient<IcategoryRepository, categoryRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<WebElectricStore1Context>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("WebElectricStore1")));
 
+builder.Host.UseNLog();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
