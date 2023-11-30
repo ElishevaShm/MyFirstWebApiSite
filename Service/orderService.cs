@@ -12,13 +12,17 @@ namespace Repository
     
     {
         private readonly IorderRepository _orderRepository;
+        private readonly IproductRepository _productRepository;
         private readonly ILogger<orderService> _logger;
 
-        public orderService(IorderRepository orderRepository,ILogger<orderService> logger)
+        public orderService(IorderRepository orderRepository,IproductRepository productRepository ,ILogger<orderService> logger)
         {
             _orderRepository = orderRepository;
+            _productRepository = productRepository;
             _logger = logger;
+
         }
+
 
         public async Task<Order> AddOrderAsync(Order order)
         {
@@ -31,13 +35,17 @@ namespace Repository
                 prodId[i] = (int)order.OrderItems.ElementAt(i).ProductId;
             }
 
-            IEnumerable<Product> listProduct = await _orderRepository.GetProductsById(prodId);
+            IEnumerable<Product> listProduct = await _productRepository.GetProductsById(prodId);
             foreach (Product product in listProduct)
             {
                 totalSumDb += product.Price;
             }
             if(totalSumClient!=totalSumDb)
+            {
                 _logger.LogError("the totalSum != orderSum");
+               // _logger.LogInformation("the totalSum != orderSum");
+            }
+                
             order.OrderSum = (int)totalSumDb;
             return await _orderRepository.AddOrderAsync(order);
             

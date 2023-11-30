@@ -23,12 +23,5 @@ namespace Repository
             await _webElectricStore1Context.SaveChangesAsync();
             return order;
         }
-
-        public async Task<IEnumerable<Product>> GetProductsById(int[] prodsId)
-        {
-            var query = _webElectricStore1Context.Products.Where(p => prodsId.Contains(p.ProductId));
-            return await query.ToListAsync();
-
-        }
     }
 }

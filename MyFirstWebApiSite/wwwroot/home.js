@@ -1,4 +1,4 @@
-﻿async function loginServer() {
+﻿async function login() {
     try {
 
         const userName = document.getElementById("txtUserName").value;
@@ -31,11 +31,11 @@
 
 
 function newUser() {
-    const new1 = document.getElementById("new")
-    new1.style.visibility = "initial"
+    const newDiv = document.getElementById("new")
+    newDiv.style.visibility = "initial"
 }
 
-async function addUserToServer() {
+async function register() {
     try {
         const userName = document.getElementById("txtNewUserName").value
         const password = document.getElementById("txtNewPassword").value
