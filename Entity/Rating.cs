@@ -11,7 +11,7 @@ namespace Entity
         public string Path { get; set; }
         public string Referer { get; set; }
         public string UserAgent { get; set; }
-        public DateTime? RecordDate { get; set; } //= DateTime.Now;
+        public DateTime? RecordDate { get; set; }
     }
 }
 
