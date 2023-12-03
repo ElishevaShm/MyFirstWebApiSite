@@ -11,25 +11,26 @@ namespace MyFirstWebApiSite.Middleware
     public class RatingMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ratingService _ratingService;
+        private readonly IratingService _ratingService;
 
         public RatingMiddleware(RequestDelegate next)
         {
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext, ratingService ratingService)
+        public async Task Invoke(HttpContext httpContext, IratingService ratingService)
         {
+            //_ratingService = ratingService;
             Rating rating = new()
             {
                 Host = httpContext.Request.Host.Host,
                 Method = httpContext.Request.Method,
                 Path = httpContext.Request.Path,
-                Referer = httpContext.Request.Headers["Referer"],
-                UserAgent = httpContext.Request.Headers["UserAgent"],
+                Referer = httpContext.Request.Headers.Referer,//["Referer"],
+                UserAgent = httpContext.Request.Headers.UserAgent,//["User-Agent"],
                 RecordDate = DateTime.Now
             };
-            
+            ratingService.addRating(rating);
 
             await _next(httpContext);
         }

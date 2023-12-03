@@ -4,6 +4,8 @@ using Service;
 using Zxcvbn;
 using Microsoft.Extensions.Configuration;
 using NLog.Web;
+using MyFirstWebApiSite.Middleware;
+using PresidentsApp.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,8 @@ builder.Services.AddTransient<IorderService, orderService>();
 builder.Services.AddTransient<IorderRepository, orderRepository>();
 builder.Services.AddTransient<IcategoryService, categoryService>();
 builder.Services.AddTransient<IcategoryRepository, categoryRepository>();
+builder.Services.AddTransient<IratingRepository, ratingRepository>();
+builder.Services.AddTransient<IratingService, ratingService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
@@ -38,7 +42,9 @@ if (app.Environment.IsDevelopment())
 
     app.UseSwaggerUI();
 }
+app.UseRatingMiddleware();
 
+app.UseErrorHandlingMiddleware();
 
 app.UseHttpsRedirection();
 
