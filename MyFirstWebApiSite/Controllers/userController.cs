@@ -94,12 +94,15 @@ namespace MyFirstWebApiSite.Controllers
 
         // PUT api/<userController>/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] User userToUpdate)
+        public async Task Put(int id, [FromBody] UserDTO userToUpdate)
         {
 
             try
             {
-               await _userService.updateUser(id, userToUpdate);
+                userToUpdate.UserId = id;
+                User user = _mapper.Map<UserDTO, User>(userToUpdate);
+                await _userService.updateUser(id, user);
+               
             }
             catch (Exception ex)
             {

@@ -20,7 +20,7 @@ namespace Repository
        
         public async Task<Rating> addRating(Rating rating)
         {
-            await _webElectricStore1Context.AddAsync(rating);
+            await _webElectricStore1Context.Ratings.AddAsync(rating);
             await _webElectricStore1Context.SaveChangesAsync();
 
             return rating;

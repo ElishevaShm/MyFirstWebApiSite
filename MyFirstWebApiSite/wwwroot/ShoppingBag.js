@@ -72,7 +72,7 @@ async function placeOrder() {
             if (!res.ok)
                 throw new Error("Error add order to server")
             const data = await res.json()
-            alert(`your order num ${data.orderId} are success!`)
+            alert(`your order num ${data.orderId} are place!`)
             sessionStorage.setItem('products', [])
             window.location.href = './Products.html';
         }
