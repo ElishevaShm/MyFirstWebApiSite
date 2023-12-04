@@ -4,6 +4,6 @@ namespace Service
 {
     public interface IratingService
     {
-        Task<Rating> addRating(Rating rating);
+        Task addRating(Rating rating);
     }
 }

@@ -9,7 +9,7 @@ namespace Repository
 {
     public interface IratingRepository
     {
-        Task<Rating> addRating(Rating rating);
+        Task addRating(Rating rating);
 
     }
 }
