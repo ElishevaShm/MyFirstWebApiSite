@@ -27,18 +27,13 @@ namespace MyFirstWebApiSite.Controllers
         [HttpPost]
         public async Task<ActionResult<OrderDTO>> AddOrder(OrderDTO orders)
         {
-            try
-            {
+            
                 Order order = _mapper.Map<OrderDTO, Order>(orders);
                 Order orderCreate = await _orderService.AddOrderAsync(order);
                 OrderDTO orderDTO = _mapper.Map<Order, OrderDTO>(orderCreate);
                 return orderCreate !=null ? CreatedAtAction(nameof(AddOrder), new {id = orderDTO.UserId }, orderDTO):NoContent();
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-            
-        }
+        
+
+}
     }
 }

@@ -4,6 +4,7 @@ using Service;
 using Entity;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.RenderTree;
+using PresidentsApp.Middlewares;
 
 namespace MyFirstWebApiSite.Middleware
 {
@@ -12,27 +13,28 @@ namespace MyFirstWebApiSite.Middleware
     {
         private readonly RequestDelegate _next;
         private readonly IratingService _ratingService;
-
+        private readonly ILogger<RatingMiddleware> _logger;
         public RatingMiddleware(RequestDelegate next)
         {
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext, IratingService ratingService)
+        public async Task Invoke(HttpContext httpContext, IratingService ratingService, ILogger<RatingMiddleware> _logger)
         {
-            //_ratingService = ratingService;
+           
             Rating rating = new()
             {
                 Host = httpContext.Request.Host.Host,
                 Method = httpContext.Request.Method,
                 Path = httpContext.Request.Path,
-                Referer = httpContext.Request.Headers.Referer,//["Referer"],
-                UserAgent = httpContext.Request.Headers.UserAgent,//["User-Agent"],
+                Referer = httpContext.Request.Headers.Referer,
+                UserAgent = httpContext.Request.Headers.UserAgent,
                 RecordDate = DateTime.Now
             };
             ratingService.addRating(rating);
-
+         
             await _next(httpContext);
+          
         }
     }
 

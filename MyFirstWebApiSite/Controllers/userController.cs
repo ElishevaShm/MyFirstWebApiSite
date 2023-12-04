@@ -31,9 +31,8 @@ namespace MyFirstWebApiSite.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserLoginDTO>> login([FromBody] UserLoginDTO userLogin)
         {
-            try
-            {
-                
+           
+
                 User user =await _userService.getUserByEmailAndPassword(userLogin.UserName, userLogin.Password);
             
                 if (user != null) 
@@ -42,13 +41,8 @@ namespace MyFirstWebApiSite.Controllers
                     _logger.LogInformation($"Login attempted with User Name, {userLogin.UserName} and password {userLogin.Password}");
                     return Ok(userCreate);
                 }
-                throw new Exception("someone try login but dont saccsses😱😱");
-            }
-            
-            catch(Exception e)
-            {
-                _logger.LogError(e.Message);
-            }
+                //throw new Exception("someone try login but dont saccsses😱😱");
+           
             return NoContent();
 
         }
@@ -71,10 +65,6 @@ namespace MyFirstWebApiSite.Controllers
         public async Task<IActionResult> Post([FromBody] UserDTO userDTO)
         {
 
-            try
-            {
-
-               
                 User user = _mapper.Map<UserDTO, User>(userDTO);
                 User newUser = await _userService.addUser(user);
                 UserDTO newUserDTO = _mapper.Map<User, UserDTO>(newUser);
@@ -84,11 +74,6 @@ namespace MyFirstWebApiSite.Controllers
                 if (newUser == null)
                     return BadRequest();
                 return CreatedAtAction(nameof(Get), new { id = user.UserId }, newUserDTO);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
 
         [HttpPost("PasswordStrength")]
@@ -102,17 +87,9 @@ namespace MyFirstWebApiSite.Controllers
         public async Task Put(int id, [FromBody] UserDTO userToUpdate)
         {
 
-            try
-            {
                 userToUpdate.UserId = id;
                 User user = _mapper.Map<UserDTO, User>(userToUpdate);
                 await _userService.updateUser(id, user);
-               
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
 
         }
     }
