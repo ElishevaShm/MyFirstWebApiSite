@@ -61,7 +61,7 @@ async function checkPassword() {
     var pr = document.getElementById('pr');
     var text = document.getElementById('strength');
 
-    await fetch('api/user/check',
+    await fetch('api/user/PasswordStrength',
         {
             method: 'POST',
             headers: {

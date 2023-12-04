@@ -68,17 +68,22 @@ namespace MyFirstWebApiSite.Controllers
 
         // POST api/<userController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] User user)
+        public async Task<IActionResult> Post([FromBody] UserDTO userDTO)
         {
 
             try
             {
+
+               
+                User user = _mapper.Map<UserDTO, User>(userDTO);
                 User newUser = await _userService.addUser(user);
-                
+                UserDTO newUserDTO = _mapper.Map<User, UserDTO>(newUser);
+
+
 
                 if (newUser == null)
                     return BadRequest();
-                return CreatedAtAction(nameof(Get), new { id = user.UserId }, newUser);
+                return CreatedAtAction(nameof(Get), new { id = user.UserId }, newUserDTO);
             }
             catch (Exception ex)
             {
@@ -86,7 +91,7 @@ namespace MyFirstWebApiSite.Controllers
             }
         }
 
-        [HttpPost("check")]
+        [HttpPost("PasswordStrength")]
         public int Check([FromBody] string pwd)
         {
             return _userService.checkPassword(pwd);

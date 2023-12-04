@@ -43,7 +43,6 @@ namespace Repository
             if(totalSumClient!=totalSumDb)
             {
                 _logger.LogError("the totalSum != orderSum");
-               // _logger.LogInformation("the totalSum != orderSum");
             }
                 
             order.OrderSum = (int)totalSumDb;
