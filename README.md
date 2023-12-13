@@ -11,3 +11,6 @@ For error reporting it uses Email notification.
 Our project provides Swagger for API documentation.
 We are writing client on HTML5,CSS,JS, and for DataBase on SQL server.
 We are writing using clean code principles.
+
+Thank you 
+Sari & Elisheva 
