@@ -41,7 +41,6 @@ namespace MyFirstWebApiSite.Controllers
                     _logger.LogInformation($"Login attempted with User Name, {userLogin.UserName} and password {userLogin.Password}");
                     return Ok(userCreate);
                 }
-                //throw new Exception("someone try login but dont saccsses😱😱");
            
             return NoContent();
 
